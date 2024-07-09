@@ -113,12 +113,16 @@
             const jsBox = document.getElementById("js-box")
             const phpBox = document.getElementById("php-box")
             buttonEl.addEventListener("click", function () {
+                let data = null;
+                
                 try {
-                    const json = JSON.parse(jsBox.value);
-                } catch {
+                    data = JSON.parse(jsBox.value);
+                } catch (error) {
                     alert('Can\'t parse json')
+                    throw error
                 }
-                phpBox.innerHTML = prettyPrintJson.toHtml(json, { quoteKeys: true, indent: 4 });
+
+                phpBox.innerHTML = prettyPrintJson.toHtml(data, { quoteKeys: true, indent: 4 });
                 phpBox.innerText = phpBox.innerText.replace(/:/g, ' =>').replace(/{/g, '[').replace(/}/g, ']')
             })
         })
